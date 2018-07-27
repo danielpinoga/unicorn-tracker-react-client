@@ -2,11 +2,24 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Card } from 'semantic-ui-react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const CardStyle = styled(Card)`
   &&&&{
-    width: 20vw;
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 100px;
+    margin: 10px;
   }
+  .header {
+    height: 70px;
+    color: black;
+  }
+`
+
+const LinkStyle = styled(Link)`
+
 `
 
 class ShowAllUnicorns extends Component {
@@ -16,24 +29,24 @@ class ShowAllUnicorns extends Component {
 
   async componentDidMount() {
     const response = await axios.get('/unicorns')
-    console.log(response.data)
     this.setState({ unicorns: response.data })
   }
 
   render() {
     const unicornList = this.state.unicorns.map(unicorn => {
       return (
-        <CardStyle color={unicorn.color} key={unicorn.id}>
-          <Card.Header>{unicorn.name}</Card.Header>
-          <Card.Meta>{unicorn.color}</Card.Meta>
-        </CardStyle>
+        <LinkStyle to={`/unicorns/${unicorn.id}`} key={unicorn.id}>
+          <CardStyle color={unicorn.color}>
+            <Card.Header>{unicorn.name}</Card.Header>
+            <Card.Content extra>{unicorn.color}</Card.Content>
+          </CardStyle>
+        </LinkStyle>
       )
     })
     return (
-      <div>
-        Unicorn Index
+      <Card.Group>
         {unicornList}
-      </div>
+      </Card.Group>
     )
   }
 }

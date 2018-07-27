@@ -13,8 +13,6 @@ class App extends Component {
             <Route exact path='/' component={ShowAllUnicorns} />
             <Route exact path='/unicorns' component={ShowAllUnicorns} />
             <Route exact path='/unicorns/:id' component={OneUnicorn} />
-
-
           </Switch>
         </div>
       </Router>

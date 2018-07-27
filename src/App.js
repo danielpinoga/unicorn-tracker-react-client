@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
-import UnicornIndex from './components/UnicornIndex';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import ShowAllUnicorns from './components/ShowAllUnicorns'
+import OneUnicorn from './components/OneUnicorn';
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>Unicorn Manager</h1>
-        <UnicornIndex />
-      </div>
+      <Router>
+        <div>
+          <h1>Unicorn Manager</h1>
+          <Switch>
+            <Route exact path='/' component={ShowAllUnicorns} />
+            <Route exact path='/unicorns' component={ShowAllUnicorns} />
+            <Route exact path='/unicorns/:id' component={OneUnicorn} />
+
+
+          </Switch>
+        </div>
+      </Router>
     )
   }
 }

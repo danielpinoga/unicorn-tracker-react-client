@@ -3,27 +3,9 @@ import axios from 'axios'
 import { Card } from 'semantic-ui-react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { ComponentWrapper, CardStyle } from './common/SharedComponents';
 
-const CardStyle = styled(Card)`
-  &&&&{
-    display: flex;
-    align-items: center;
-    width: 150px;
-    height: 100px;
-    margin: 10px;
-    background-color: burlywood;
-  }
-  .header {
-    height: 70px;
-    color: black;
-  }
-`
-
-const ComponentWrapper = styled.div`
-  margin: 20px;
-`
-
-class ShowAllUnicorns extends Component {
+class AllUnicorns extends Component {
   state = {
     unicorns: []
   }
@@ -54,4 +36,4 @@ class ShowAllUnicorns extends Component {
   }
 }
 
-export default ShowAllUnicorns
+export default AllUnicorns

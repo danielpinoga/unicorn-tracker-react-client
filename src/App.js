@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import ShowAllUnicorns from './components/ShowAllUnicorns'
+
+import HomePage from './components/HomePage'
+import AllUnicorns from './components/AllUnicorns'
 import OneUnicorn from './components/OneUnicorn'
+import AllLocations from './components/AllLocations'
+import OneLocation from './components/OneLocation'
+
 import styled from 'styled-components'
 import Header from './components/common/Header'
 import SideBar from './components/common/SideBar'
@@ -32,9 +37,12 @@ class App extends Component {
             <SideBar />
 
             <Switch>
-              <Route exact path='/' component={ShowAllUnicorns} />
-              <Route exact path='/unicorns' component={ShowAllUnicorns} />
+              <Route exact path='/' component={HomePage} />
+              <Route exact path='/unicorns' component={AllUnicorns} />
               <Route exact path='/unicorns/:id' component={OneUnicorn} />
+              <Route exact path='/locations/' component={AllLocations} />
+              <Route exact path='/locations/:id' component={OneLocation} />
+
             </Switch>
           </PageBody>
           <Footer />

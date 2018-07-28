@@ -5,47 +5,42 @@ import { ComponentWrapper, CardStyle } from './common/SharedComponents';
 
 class ShowAllItems extends Component {
   state = {
-    unicorns: [],
-    locations: []
+    items: []
   }
 
   async componentDidMount() {
-    if (this.props.itemType == 'unicorn') {
-      const unicorns = await this.props.getAllUnicorns()
-      this.setState({ unicorns })
-    } else {
-      const locations = await this.props.getAllLocations()
-      this.setState({ locations })
-    }
+    const items = await this.props.getAllItems()
+    this.setState({ items })
   }
 
   render() {
-    const unicornList = this.state.unicorns.map(unicorn => {
-      return (
-        <Link to={`/unicorns/${unicorn.id}`} key={unicorn.id}>
-          <CardStyle>
-            <Card.Header>{unicorn.name}</Card.Header>
-            <Card.Content extra>{unicorn.color}</Card.Content>
-          </CardStyle>
-        </Link>
-      )
+    let itemList = this.state.items.map(item => {
+      if (this.props.itemType == 'unicorn') {
+        return (
+          <Link to={`/unicorns/${item.id}`} key={item.id}>
+            <CardStyle>
+              <Card.Header>{item.name}</Card.Header>
+              <Card.Content extra>{item.color}</Card.Content>
+            </CardStyle>
+          </Link>
+        )
+      } else {
+        return (
+          <Link to={`/locations/${item.id}`} key={item.id}>
+            <CardStyle>
+              <Card.Header>{item.name}</Card.Header>
+            </CardStyle>
+          </Link>
+        )
+      }
     })
 
-    const locationList = this.state.locations.map(location => {
-      return (
-        <Link to={`/locations/${location.id}`} key={location.id}>
-          <CardStyle>
-            <Card.Header>{location.name}</Card.Header>
-          </CardStyle>
-        </Link>
-      )
-    })
     return (
       <ComponentWrapper>
         <Card.Group>
-          {this.props.itemType == 'unicorn' ? unicornList : locationList}
+          {itemList}
         </Card.Group>
-      </ComponentWrapper>
+      </ComponentWrapper >
     )
   }
 }

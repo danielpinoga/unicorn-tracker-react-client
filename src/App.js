@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import axios from 'axios'
 
 import HomePage from './components/HomePage'
-import OneUnicorn from './components/OneUnicorn'
 import OneLocation from './components/OneLocation'
 import ShowAllItems from './components/ShowAllItems'
+import ShowOneItem from './components/ShowOneItem'
 
 import styled from 'styled-components'
 import Header from './components/common/Header'
@@ -48,16 +48,32 @@ class App extends Component {
   }
 
   render() {
-    const AllUnicornsComponent = () => (
+    const AllUnicornsComponent = (props) => (
       <ShowAllItems
         itemType='unicorn'
-        getAllUnicorns={this.getAllUnicorns} />
+        getAllItems={this.getAllUnicorns}
+        {...props} />
     )
 
-    const AllLocationsComponent = () => (
+    const AllLocationsComponent = (props) => (
       <ShowAllItems
         itemType='location'
-        getAllLocations={this.getAllLocations} />
+        getAllItems={this.getAllLocations}
+        {...props} />
+    )
+
+    const OneUnicornComponent = (props) => (
+      <ShowOneItem
+        itemType='unicorn'
+        getOneItem={this.getOneUnicorn}
+        {...props} />
+    )
+
+    const OneLocationComponent = (props) => (
+      <ShowOneItem
+        itemType='unicorn'
+        getOneItem={this.getOneLocation}
+        {...props} />
     )
 
 
@@ -72,7 +88,7 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={HomePage} />
               <Route exact path='/unicorns' component={AllUnicornsComponent} />
-              <Route exact path='/unicorns/:id' component={OneUnicorn} />
+              <Route exact path='/unicorns/:id' component={OneUnicornComponent} />
               <Route exact path='/locations/' component={AllLocationsComponent} />
               <Route exact path='/locations/:id' component={OneLocation} />
 

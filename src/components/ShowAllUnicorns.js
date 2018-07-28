@@ -11,6 +11,7 @@ const CardStyle = styled(Card)`
     width: 150px;
     height: 100px;
     margin: 10px;
+    background-color: burlywood;
   }
   .header {
     height: 70px;
@@ -18,8 +19,8 @@ const CardStyle = styled(Card)`
   }
 `
 
-const LinkStyle = styled(Link)`
-
+const ComponentWrapper = styled.div`
+  margin: 20px;
 `
 
 class ShowAllUnicorns extends Component {
@@ -35,18 +36,20 @@ class ShowAllUnicorns extends Component {
   render() {
     const unicornList = this.state.unicorns.map(unicorn => {
       return (
-        <LinkStyle to={`/unicorns/${unicorn.id}`} key={unicorn.id}>
-          <CardStyle color={unicorn.color}>
+        <Link to={`/unicorns/${unicorn.id}`} key={unicorn.id}>
+          <CardStyle>
             <Card.Header>{unicorn.name}</Card.Header>
             <Card.Content extra>{unicorn.color}</Card.Content>
           </CardStyle>
-        </LinkStyle>
+        </Link>
       )
     })
     return (
-      <Card.Group>
-        {unicornList}
-      </Card.Group>
+      <ComponentWrapper>
+        <Card.Group>
+          {unicornList}
+        </Card.Group>
+      </ComponentWrapper>
     )
   }
 }

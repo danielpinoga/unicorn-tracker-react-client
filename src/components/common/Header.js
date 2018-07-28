@@ -10,6 +10,7 @@ const HeaderStyle = styled.div`
   color: white;
   font-size: 40px;
   height: 7vh;
+  min-height: 50px;
 `
 
 const Header = ({ name }) => (

@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { Card } from 'semantic-ui-react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { ComponentWrapper, CardStyle } from './common/SharedComponents';
 
-class AllUnicorns extends Component {
+class ShowAllItems extends Component {
   state = {
-    unicorns: []
+    unicorns: [],
+    locations: []
   }
 
   async componentDidMount() {
-    const response = await axios.get('/unicorns')
-    this.setState({ unicorns: response.data })
+    if (this.props.itemType == 'unicorn') {
+      const unicorns = await this.props.getAllUnicorns()
+      this.setState({ unicorns })
+    } else {
+      const locations = await this.props.getAllLocations()
+      this.setState({ locations })
+    }
   }
 
   render() {
@@ -26,14 +30,24 @@ class AllUnicorns extends Component {
         </Link>
       )
     })
+
+    const locationList = this.state.locations.map(location => {
+      return (
+        <Link to={`/locations/${location.id}`} key={location.id}>
+          <CardStyle>
+            <Card.Header>{location.name}</Card.Header>
+          </CardStyle>
+        </Link>
+      )
+    })
     return (
       <ComponentWrapper>
         <Card.Group>
-          {unicornList}
+          {this.props.itemType == 'unicorn' ? unicornList : locationList}
         </Card.Group>
       </ComponentWrapper>
     )
   }
 }
 
-export default AllUnicorns
+export default ShowAllItems

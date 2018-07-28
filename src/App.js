@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import axios from 'axios'
 
 import HomePage from './components/HomePage'
-import AllUnicorns from './components/AllUnicorns'
 import OneUnicorn from './components/OneUnicorn'
-import AllLocations from './components/AllLocations'
 import OneLocation from './components/OneLocation'
+import ShowAllItems from './components/ShowAllItems'
 
 import styled from 'styled-components'
 import Header from './components/common/Header'
@@ -27,7 +27,40 @@ const PageBody = styled.div`
 `
 
 class App extends Component {
+  getAllLocations = async () => {
+    const response = await axios.get('/locations')
+    return response.data
+  }
+
+  getOneLocation = async (locationId) => {
+    const response = await axios.get(`/locations/${locationId}`)
+    return response.data
+  }
+
+  getAllUnicorns = async () => {
+    const response = await axios.get('/unicorns')
+    return response.data
+  }
+
+  getOneUnicorn = async (unicornId) => {
+    const response = await axios.get(`/unicorns/${unicornId}`)
+    return response.data
+  }
+
   render() {
+    const AllUnicornsComponent = () => (
+      <ShowAllItems
+        itemType='unicorn'
+        getAllUnicorns={this.getAllUnicorns} />
+    )
+
+    const AllLocationsComponent = () => (
+      <ShowAllItems
+        itemType='location'
+        getAllLocations={this.getAllLocations} />
+    )
+
+
     return (
       <Router>
         <AppWrapper>
@@ -38,9 +71,9 @@ class App extends Component {
 
             <Switch>
               <Route exact path='/' component={HomePage} />
-              <Route exact path='/unicorns' component={AllUnicorns} />
+              <Route exact path='/unicorns' component={AllUnicornsComponent} />
               <Route exact path='/unicorns/:id' component={OneUnicorn} />
-              <Route exact path='/locations/' component={AllLocations} />
+              <Route exact path='/locations/' component={AllLocationsComponent} />
               <Route exact path='/locations/:id' component={OneLocation} />
 
             </Switch>
